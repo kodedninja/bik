@@ -1,0 +1,26 @@
+{
+  "name": "bik",
+  "version": "0.1.0",
+  "description": "Tiny library for isolated web components",
+  "main": "index.js",
+  "scripts": {
+    "start": "budo examples/multiple.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kodedninja/bik.git"
+  },
+  "author": "kodedninja",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kodedninja/bik/issues"
+  },
+  "homepage": "https://github.com/kodedninja/bik#readme",
+  "dependencies": {
+    "nanomorph": "^5.1.3"
+  },
+  "devDependencies": {
+	"nanohtml": "^1.2.3",
+    "budo": "^11.2.0"
+  }
+}
