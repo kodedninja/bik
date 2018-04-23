@@ -42,3 +42,6 @@ Appends the component to a `root` Node.
 
 ### `component.prepend(root)`
 Prepends the component to a `root` Node.
+
+### `component.element`
+The component's DOM Node.
