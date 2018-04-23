@@ -20,3 +20,5 @@ var label = bik({name: ''}, (t) => {
 
 label.a(document.body)
 input.a(document.body)
+
+console.log(input.element)
