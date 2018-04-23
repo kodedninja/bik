@@ -4,7 +4,9 @@
   "description": "Tiny library for isolated web components",
   "main": "index.js",
   "scripts": {
-    "start": "budo examples/multiple.js"
+	"count": "budo examples/count.js",
+    "form": "budo examples/form.js",
+	"multiple": "budo examples/multiple.js"
   },
   "repository": {
     "type": "git",

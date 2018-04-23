@@ -26,9 +26,9 @@ counter.a(document.body)
 ```
 
 ## why?
-I love [`choo`](https://github.com/choojs/choo), but sometimes it's too much. For example when I want to use a simple component in a static site. I was too lazy to find a module for that so I've built one.
+I love [`choo`](https://github.com/choojs/choo) but sometimes it's too much. For example when I want to use a simple component, like a changing navigation menu or a counter in a static site. I was too lazy to find a module for that so I've built one.
 
-Uses [`nanomorph`](https://github.com/choojs/nanomorph) under the hood.
+Uses [`nanomorph`](https://github.com/choojs/nanomorph) under the hood and you need [`nanohtml`](https://github.com/choojs/nanohtml) or something similar.
 
 ## api
 ### `component = bik(state, handler(state))`
