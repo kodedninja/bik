@@ -26,13 +26,13 @@ counter.a(document.body)
 ```
 
 ## why?
-I love [`choo`](https://github.com/choojs/choo) but sometimes it's too much. For example when I want to use a simple component, like a changing navigation menu or a counter in a static site. I was too lazy to find a module for that so I've built one.
+I love [`choo`](https://github.com/choojs/choo) but sometimes you don't want to use it as the base of a site. For example when I want to use a single component (example: counter, list, responsive menu). It can also be used to build components as modules.
 
 Uses [`nanomorph`](https://github.com/choojs/nanomorph) under the hood and you need [`nanohtml`](https://github.com/choojs/nanohtml) or something similar.
 
 ## api
-### `component = bik(state, handler(state))`
-Initialize a new `bik` instance. `state` is an `object` that stores the default values for the used variables. The `handler` function is passed as argument the instance itself.
+### `component = bik(initialstate, handler(component))`
+Initialize a new `bik` instance. `initialstate` is an `object` that stores the default values for the variables used by the component. The `handler` function is passed as argument the instance itself.
 
 ### `component.render()` or `component.r()`
 Rerenders the component.
