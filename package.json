@@ -4,9 +4,9 @@
   "description": "Tiny library for isolated web components",
   "main": "index.js",
   "scripts": {
-	"count": "budo examples/count.js",
+    "count": "budo examples/count.js",
     "form": "budo examples/form.js",
-	"multiple": "budo examples/multiple.js"
+    "multiple": "budo examples/multiple.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "nanomorph": "^5.1.3"
   },
   "devDependencies": {
-	"nanohtml": "^1.2.3",
-    "budo": "^11.2.0"
+    "budo": "^11.4.1",
+    "nanohtml": "^1.2.3"
   }
 }
