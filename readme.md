@@ -32,7 +32,7 @@ Uses [`nanomorph`](https://github.com/choojs/nanomorph) under the hood and you n
 
 ## api
 ### `component = bik(initialstate, handler(component))`
-Initialize a new `bik` instance. `initialstate` is an `object` that stores the default values for the variables used by the component. The `handler` function is passed as argument the instance itself.
+Initialize a new `bik` instance. `initialstate` is an `object` that stores the default values for the variables used by the component. The `handler` function gets the component as an argument.
 
 ### `component.render()` or `component.r()`
 Rerenders the component.
