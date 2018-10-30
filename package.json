@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "count": "budo examples/count.js",
-    "form": "budo examples/form.js",
-    "multiple": "budo examples/multiple.js"
+    "form": "budo examples/form.js"
   },
   "repository": {
     "type": "git",

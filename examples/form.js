@@ -1,6 +1,12 @@
 var bik = require('..')
 var html = require('nanohtml')
 
+var label = bik({name: ''}, (t) => {
+	return html`
+		<div>hello ${t.name}</div>
+	`
+})
+
 var input = bik((t) => {
 	return html`
 		<input type="text" onkeyup="${key}">
@@ -10,12 +16,6 @@ var input = bik((t) => {
 		label.name = this.value
 		label.r()
 	}
-})
-
-var label = bik({name: ''}, (t) => {
-	return html`
-		<div>hello ${t.name}</div>
-	`
 })
 
 label.a(document.body)

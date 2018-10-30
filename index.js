@@ -1,8 +1,6 @@
-const nanomorph = require('nanomorph')
+const nm = require('nanomorph')
 
-module.exports = bik
-
-function bik(t, f) {
+module.exports = function (t, f) {
 	if (typeof t === 'function') {
 		f = t
 		t = {}
@@ -17,31 +15,28 @@ function bik(t, f) {
 	t.r = t.render = function() {
 		var newtree = f(t)
 		if (!newtree) {
-			throw new Error('the handler function must return a HTML Node')
+			throw new Error('the handler function must return an HTML Node')
 		}
-		nanomorph(t.element, newtree)
+		nm(t.element, newtree)
 	}
 
 	t.a = t.append = function (root) {
-		if (!_added) {
-			t.element = f(t)
-		} else {
-			throw new Error('cannot use a component multiple times')
-		}
-
+		init()
 		root.appendChild(t.element)
-		_added = true
 	}
 
 	t.prepend = function (root) {
+		init()
+		root.insertBefore(t.element, root.firstChild)
+	}
+
+	function init() {
 		if (!_added) {
 			t.element = f(t)
+			_added = true
 		} else {
 			throw new Error('cannot use a component multiple times')
 		}
-
-		root.insertBefore(t.element, root.firstChild)
-		_added = true
 	}
 
 	return t
