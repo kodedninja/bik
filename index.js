@@ -2,7 +2,7 @@ const nm = require('nanomorph')
 
 const INVALID_PROPS = ['arguments', 'caller', 'length', 'name', 'prototype']
 
-module.exports = function (is, f) {
+function bik (is, f) {
 	if (typeof is === 'function') {
 		f = is
 	}
@@ -52,3 +52,6 @@ module.exports = function (is, f) {
 
 	return t
 }
+
+if (module.parent) module.exports = bik
+else window.bik = bik

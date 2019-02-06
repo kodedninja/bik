@@ -4,8 +4,10 @@
   "description": "Tiny library for isolated web components",
   "main": "index.js",
   "scripts": {
+    "build": "browserify index.js -g es2040 -g uglifyify -o build/bik.min.js",
     "count": "budo examples/count.js",
-    "form": "budo examples/form.js"
+    "form": "budo examples/form.js",
+    "static": "budo -d build -s bik.min.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +23,11 @@
     "nanomorph": "^5.1.3"
   },
   "devDependencies": {
+    "browserify": "^16.2.3",
     "budo": "^11.4.1",
-    "nanohtml": "^1.2.3"
+    "es2040": "^1.2.6",
+    "nanohtml": "^1.2.3",
+    "tinyify": "^2.5.0",
+    "uglifyify": "^5.0.1"
   }
 }
