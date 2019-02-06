@@ -1,6 +1,6 @@
 {
   "name": "bik",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "Tiny library for isolated web components",
   "main": "index.js",
   "scripts": {
