@@ -1,7 +1,7 @@
 var bik = require('..')
 var html = require('nanohtml')
 
-var counter = bik({count: 0}, (t) => {
+var counter = bik({count: 0}, function (t) {
 	return html`
 		<div onclick="${click}">Count is ${t.count}</div>
 	`
@@ -12,4 +12,4 @@ var counter = bik({count: 0}, (t) => {
 	}
 })
 
-counter.a(document.body)
+counter(document.body)

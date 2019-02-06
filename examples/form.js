@@ -1,11 +1,17 @@
 var bik = require('..')
 var html = require('nanohtml')
 
-var label = bik({name: ''}, (t) => {
+var label = bik({title: ''}, function (t) {
 	return html`
-		<div>hello ${t.name}</div>
+		<div>hello ${t.title}</div>
 	`
 })
+label.load = function (el) {
+	el.innerHTML += ' (fresh!)'
+}
+label.afterupdate = function (el) {
+	el.innerHTML += ' (updated!)'
+}
 
 var input = bik((t) => {
 	return html`
@@ -13,12 +19,10 @@ var input = bik((t) => {
 	`
 
 	function key() {
-		label.name = this.value
+		label.title = this.value
 		label.r()
 	}
 })
 
-label.a(document.body)
-input.a(document.body)
-
-console.log(input.element)
+label(document.body)
+input(document.body)
