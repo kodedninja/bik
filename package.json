@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "browserify index.js -g es2040 -g uglifyify -o build/bik.min.js",
+    "test": "standard",
     "count": "budo examples/count.js",
     "form": "budo examples/form.js",
     "static": "budo -d build -s bik.min.js"
@@ -27,6 +28,7 @@
     "budo": "^11.4.1",
     "es2040": "^1.2.6",
     "nanohtml": "^1.2.3",
+    "standard": "^12.0.1",
     "tinyify": "^2.5.0",
     "uglifyify": "^5.0.1"
   }
