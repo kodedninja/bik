@@ -1,64 +1,68 @@
 # bik
-A tiny component toolkit
+Simple functional components for non-choo & [choo](https://github.com/choojs/choo) environments. State around [morfine](https://github.com/kodedninja/morfine).
 
-## installation
+## Installation
 ```
 npm i -S bik
 ```
 
-## example
+## Example
 ```javascript
-var bik = require('bik')
+var component = require('bik')
 var html = require('nanohtml')
 
-var counter = bik({count: 0}, function (t) {
+var counter = component({ count: 0 }, function (ctx, amount) {
   return html`
-    <div onclick="${click}">Count is ${t.count}</div>
+    <div onclick="${click}">Count is ${ctx.count}</div>
   `
 
-  function click() {
-    t.count++
-    t.r()
+  function click () {
+    ctx.count += amount
+    ctx.r()
   }
 })
-counter.load = function (el) {
-  el.innerHTML += ' (fresh!)'
-}
-counter.afterupdate = function (el) {
-  el.innerHTML += ' (updated!)'
-}
 
-counter(document.body)
+// non-choo
+document.body.appendChild(counter())
+
+// choo
+html`${counter(2)}`
 ```
 
-It should also work standalone in the browser by including `build/bik.min.js`. It provides a global `bik` function.
+It also works standalone in the browser by including `build/bik.min.js`. It provides a global `bik` function.
 
-## why?
+## Why?
 
-I love [`choo`](https://github.com/choojs/choo) and how it handles components so I wanted to have a similar experience in cases where choo isn't used. For example when I want to use a single awesome-component (ex: counter, list, responsive menu). It can also be used to build components as modules.
+To write simple components and be able to use them outside of Choo.
 
-Uses [`nanomorph`](https://github.com/choojs/nanomorph) under the hood and you need [`nanohtml`](https://github.com/choojs/nanohtml) or a similar way to generate DOM.
+Bik's philosophy:
+- choo and non-choo compatibility
+- direct access to the whole state (via `ctx` or the component itself)
+- no events, only functions
 
 ## api
-### `component(root) = bik(initialstate, handler(component))`
-Initialize a new `bik` instance. `initialstate` is an `object` that stores the default values for the variables used by the component. The `handler` function gets the component itself as an argument. `component(root)` appends the component to the `root` Node.
-
-### `component.prepend(root)`
-Prepends the component to the `root` Node.
+### `component(props) = bik(initialState, renderer(context, ...props))`
+Initialize a new `bik` instance. `initialState` is an `object`. The `renderer` function gets the whole context as an argument, followed by the arguments of the call.
 
 ### `component.load(el)`
 Called when the element was mounted.
 
-### `component.render()` or `component.r()`
+### `component.unload(el)`
+Called when the element was unmounted.
+
+### `component.rerender()` or `component.r()`
 Rerenders the component.
 
-### `component.afterupdate(el)`
+### `component.beforerender(el)`
+Called before the component was rerendered.
+
+### `component.afterrender(el)`
 Called after the component was rerendered.
 
-### `component.element`
+### `component.el`
 The component's DOM Node.
 
-## inspiration
-- [choo](https://github.com/choojs/choo)
+## See Also
 - [nanocomponent](https://github.com/choojs/nanocomponent)
-- [dot-dom](https://github.com/wavesoft/dot-dom)
+- [fun-component](https://github.com/tornqvist/fun-component/)
+- [microcomponent](https://github.com/yoshuawuyts/microcomponent)
