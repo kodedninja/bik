@@ -54,3 +54,4 @@ function bik (initialState, renderer) {
 }
 
 module.exports = bik
+if (typeof window !== 'undefined') window.bik = bik
