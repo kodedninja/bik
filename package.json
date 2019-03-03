@@ -6,7 +6,8 @@
   "scripts": {
     "build": "browserify index.js -g es2040 -g uglifyify -o build/bik.min.js",
     "start": "nanoconstruct examples/choo-count.js",
-    "test": "standard",
+    "test": "standard && npm run test:browser",
+    "test:browser": "browserify test.js | tape-run",
     "no-choo": "budo examples/form.js",
     "static": "budo -d build -s bik.min.js"
   },
@@ -21,16 +22,19 @@
   },
   "homepage": "https://github.com/kodedninja/bik#readme",
   "dependencies": {
-    "morfine": "^1.0.0",
+    "morfine": "^1.1.0",
     "on-load": "^4.0.1"
   },
   "devDependencies": {
     "browserify": "^16.2.3",
     "budo": "^11.4.1",
     "es2040": "^1.2.6",
+    "fek": "^1.0.0",
     "nanoconstruct": "^0.3.0",
     "nanohtml": "^1.2.3",
     "standard": "^12.0.1",
+    "tape": "^4.10.1",
+    "tape-run": "^5.0.0",
     "uglifyify": "^5.0.1"
   }
 }

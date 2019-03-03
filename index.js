@@ -27,20 +27,20 @@ function bik (initialState, renderer) {
   })
 
   // initialize the wrapper and pass everything
-  function _create(args) {
+  function _create (args) {
     wrapper = morfine(() => renderer(ctx, ...args))
 
     // attach event handlers
     onload(wrapper.el, (el) => {
-      if (ctx.load) ctx.load(el)      // load
+      if (ctx.load) ctx.load(el) // load
     }, (el) => {
-      if (ctx.unload) ctx.unload(el)  // unload
+      if (ctx.unload) ctx.unload(el) // unload
     })
     wrapper.beforerender = (el) => {
-      if (ctx.beforerender) ctx.beforerender(el)   // beforerender
+      if (ctx.beforerender) ctx.beforerender(el) // beforerender
     }
     wrapper.afterrender = (el) => {
-      if (ctx.afterrender) ctx.afterrender(el)     // afterrender
+      if (ctx.afterrender) ctx.afterrender(el) // afterrender
     }
 
     // shortcuts to wrapper
