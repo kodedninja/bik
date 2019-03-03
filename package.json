@@ -1,7 +1,7 @@
 {
   "name": "bik",
   "version": "1.0.1",
-  "description": "A tiny component toolkit",
+  "description": "Simple functional components for non-choo & choo environments",
   "main": "index.js",
   "scripts": {
     "build": "browserify index.js -g es2040 -g uglifyify -o build/bik.min.js",
