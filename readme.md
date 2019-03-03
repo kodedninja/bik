@@ -1,9 +1,9 @@
 # bik
-Simple functional components for non-choo & [choo](https://github.com/choojs/choo) environments. State around [morfine](https://github.com/kodedninja/morfine).
+Simple functional components for non-choo & [choo](https://github.com/choojs/choo) environments. Provides a state around [morfine](https://github.com/kodedninja/morfine).
 
 ## Installation
 ```
-npm i -S bik
+npm i bik
 ```
 
 ## Example
@@ -36,31 +36,31 @@ It also works standalone in the browser by including `build/bik.min.js`. It prov
 To write simple components and be able to use them outside of Choo.
 
 Bik's philosophy:
-- choo and non-choo compatibility
-- direct access to the whole state (via `ctx` or the component itself)
-- no events, only functions
+- Support both choo and non-choo environments
+- Direct access to the whole context (state + component)
+- No events, only functions
 
-## api
-### `component(props) = bik(initialState, renderer(context, ...props))`
-Initialize a new `bik` instance. `initialState` is an `object`. The `renderer` function gets the whole context as an argument, followed by the arguments of the call.
+## API
+### `render(...props) = bik(initialState, renderer(context, ...props))`
+Initialize a new `bik` instance. `initialState` is an `object`. The `renderer` function gets the whole context (state + component) as an argument, followed by the arguments of the `render` call.
 
 ### `component.load(el)`
-Called when the element was mounted.
+Called when the element was mounted via [`on-load`](https://github.com/shama/on-load).
 
 ### `component.unload(el)`
-Called when the element was unmounted.
+Called when the element was unmounted via [`on-load`](https://github.com/shama/on-load).
 
 ### `component.rerender()` or `component.r()`
 Rerenders the component.
 
 ### `component.beforerender(el)`
-Called before the component was rerendered.
+Called after the new tree has been generated, but not yet rendered.
 
 ### `component.afterrender(el)`
-Called after the component was rerendered.
+Called after the new tree was rendered.
 
 ### `component.el`
-The component's DOM Node.
+The current DOM Node in the document.
 
 ## See Also
 - [nanocomponent](https://github.com/choojs/nanocomponent)
