@@ -1,57 +1,56 @@
-const nm = require('nanomorph')
+var morfine = require('morfine')
+var onload = require('on-load')
+var assert = require('assert')
 
-const INVALID_PROPS = ['arguments', 'caller', 'length', 'name', 'prototype']
+var INVALID_PROPS = ['arguments', 'caller', 'length', 'name', 'prototype']
 
-function bik (is, f) {
-  if (typeof is === 'function') {
-    f = is
+// (object?, fn) -> fn
+function bik (initialState, renderer) {
+  if (typeof initialState === 'function') {
+    renderer = initialState
   }
-  if (typeof f !== 'function') {
-    throw new Error('bik needs at least a handler function.')
-  }
-  var _added = false
+  assert(typeof renderer === 'function', 'bik: renderer must be a function')
 
-  var t = function (root) {
-    _init()
-    root.appendChild(t.element)
-    // call load if exists
-    if (t.load) t.load(t.element)
+  var wrapper = null
+
+  var ctx = function (...args) {
+    if (!wrapper) {
+      _create(args)
+    }
+    return wrapper.el
   }
+
   // set initial state
-  Object.keys(is).map(key => {
-    if (INVALID_PROPS.indexOf(key) !== -1) throw new Error(`cannot use "${key}" as property name`)
-    t[key] = is[key]
+  Object.keys(initialState).map(key => {
+    if (INVALID_PROPS.indexOf(key) !== -1) throw new Error(`bik: cannot use "${key}" as state property name`)
+    ctx[key] = initialState[key]
   })
 
-  t.element = null
+  // initialize the wrapper and pass everything
+  function _create(args) {
+    wrapper = morfine(() => renderer(ctx, ...args))
 
-  t.r = t.render = function () {
-    var newtree = f(t)
-    if (!newtree) {
-      throw new Error('the handler function must return an HTML Node')
+    // attach event handlers
+    onload(wrapper.el, (el) => {
+      if (ctx.load) ctx.load(el)      // load
+    }, (el) => {
+      if (ctx.unload) ctx.unload(el)  // unload
+    })
+    wrapper.beforerender = (el) => {
+      if (ctx.beforerender) ctx.beforerender(el)   // beforerender
     }
-    var el = nm(t.element, newtree)
-    // call afterupdate if exists
-    if (t.afterupdate) t.afterupdate(el)
-  }
+    wrapper.afterrender = (el) => {
+      if (ctx.afterrender) ctx.afterrender(el)     // afterrender
+    }
 
-  t.prepend = function (root) {
-    _init()
-    root.insertBefore(t.element, root.firstChild)
-    if (t.load) t.load(t.element)
-  }
-
-  function _init () {
-    if (!_added) {
-      t.element = f(t)
-      _added = true
-    } else {
-      throw new Error('cannot use a component multiple times')
+    // shortcuts to wrapper
+    ctx.el = wrapper.el
+    ctx.r = ctx.rerender = function () {
+      wrapper.r()
     }
   }
 
-  return t
+  return ctx
 }
 
-if (module.parent) module.exports = bik
-else window.bik = bik
+module.exports = bik

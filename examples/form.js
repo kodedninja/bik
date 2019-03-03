@@ -1,19 +1,19 @@
-var bik = require('..')
+var component = require('..')
 var html = require('nanohtml')
 
-var label = bik({ title: '' }, function (t) {
+var label = component({ title: '' }, function (ctx, message) {
   return html`
-    <div>hello ${t.title}</div>
+    <div>hello ${ctx.title}. ${message}</div>
   `
 })
-label.load = function (el) {
+label.onload = function (el) {
   el.innerHTML += ' (fresh!)'
 }
-label.afterupdate = function (el) {
-  el.innerHTML += ' (updated!)'
+label.beforerender = function (el) {
+  el.innerHTML += ' (rerendered)'
 }
 
-var input = bik(function (t) {
+var input = component(function () {
   return html`
     <input type="text" onkeyup="${key}">
   `
@@ -24,5 +24,5 @@ var input = bik(function (t) {
   }
 })
 
-label(document.body)
-input(document.body)
+document.body.appendChild(label('welcome!'))
+document.body.appendChild(input())
