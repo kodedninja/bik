@@ -23,7 +23,7 @@ var counter = component({ count: 0 }, function (ctx, amount) {
 })
 
 // non-choo
-document.body.appendChild(counter())
+document.body.appendChild(counter(2))
 
 // choo
 html`${counter(2)}`
