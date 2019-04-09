@@ -1,6 +1,8 @@
 var morfine = require('morfine')
-var onload = require('on-load')
 var assert = require('assert')
+var onload = require('on-load')
+var OL_KEY_ID = onload.KEY_ID
+var OL_ATTR_ID = onload.KEY_ATTR
 
 var INVALID_PROPS = ['arguments', 'caller', 'length', 'name', 'prototype']
 
@@ -28,26 +30,39 @@ function bik (initialState, renderer) {
 
   // initialize the wrapper and pass everything
   function _create (args) {
-    wrapper = morfine(() => renderer(ctx, ...args))
+    wrapper = morfine(() => renderer(ctx, ...args), _handleBefore, _handleAfter)
 
     // attach event handlers
-    onload(wrapper.el, (el) => {
-      if (ctx.load) ctx.load(el) // load
-    }, (el) => {
-      if (ctx.unload) ctx.unload(el) // unload
-    })
-    wrapper.beforerender = (el) => {
-      if (ctx.beforerender) ctx.beforerender(el) // beforerender
-    }
-    wrapper.afterrender = (el) => {
-      if (ctx.afterrender) ctx.afterrender(el) // afterrender
-    }
+    onload(wrapper.el, _handleLoad, _handleUnload, ctx._bid)
 
     // shortcuts to wrapper
-    ctx.el = wrapper.el
+    Object.defineProperty(ctx, 'el', {
+      get: function () {
+        return wrapper.el
+      }
+    })
     ctx.r = ctx.rerender = function () {
+      ctx._olID = wrapper.el.dataset[OL_KEY_ID]
       wrapper.r()
     }
+  }
+
+  // handlers
+  function _handleBefore (el) {
+    if (ctx.beforerender) ctx.beforerender(el)
+  }
+
+  function _handleAfter (el) {
+    if (ctx._olID) el.setAttribute(OL_ATTR_ID, ctx._olID)
+    if (ctx.afterrender) ctx.afterrender(el)
+  }
+
+  function _handleLoad (el) {
+    if (ctx.load) ctx.load(el) // load
+  }
+
+  function _handleUnload (el) {
+    if (ctx.unload) ctx.unload(el) // unload
   }
 
   return ctx

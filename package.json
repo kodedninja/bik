@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/kodedninja/bik#readme",
   "dependencies": {
-    "morfine": "^1.1.0",
+    "morfine": "^1.2.0",
     "on-load": "^4.0.1"
   },
   "devDependencies": {

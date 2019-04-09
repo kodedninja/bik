@@ -12,8 +12,12 @@ var counter = component({ count: 0 }, function (ctx, amount) {
   }
 })
 
-counter.onload = function (el) {
+counter.load = function (el) {
   console.log(el)
+}
+
+counter.unload = function (el) {
+  console.log('unload')
 }
 
 module.exports = () => html`${counter(2)}`

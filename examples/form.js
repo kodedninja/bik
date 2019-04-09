@@ -6,7 +6,7 @@ var label = component({ title: '' }, function (ctx, message) {
     <div>hello ${ctx.title}. ${message}</div>
   `
 })
-label.onload = function (el) {
+label.load = function (el) {
   el.innerHTML += ' (fresh!)'
 }
 label.beforerender = function (el) {

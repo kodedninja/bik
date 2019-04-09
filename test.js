@@ -55,6 +55,47 @@ test('rerender works', function (t) {
   t.equal(render().innerHTML, 'hello world', 'innerHTML match after')
 })
 
+test('load', function (t) {
+  var render = component({ text: 'hello' }, function (ctx) {
+    return html`<div>${ctx.text}</div>`
+  })
+
+  var load = fake()
+  render.load = load
+
+  document.body.appendChild(render())
+
+  t.plan(1)
+  // delay assertion for on-load
+  setTimeout(function () {
+    t.equal(load.callCount(), 1, 'was called once')
+    // cleanup
+    document.body.removeChild(document.body.childNodes[1])
+  })
+})
+
+test('unload', function (t) {
+  var render = component({ text: 'hello' }, function (ctx) {
+    return html`<div>${ctx.text}</div>`
+  })
+
+  var unload = fake()
+  render.unload = unload
+
+  document.body.appendChild(render())
+
+  t.plan(1)
+  // delay assertion for on-load
+  setTimeout(function () {
+    document.body.removeChild(document.body.childNodes[1])
+
+    // delay assertion for on-load
+    setTimeout(function () {
+      t.equal(unload.callCount(), 1, 'was called once')
+    })
+  })
+})
+
 function greeting (ctx, name) {
   return html`
     <div>
